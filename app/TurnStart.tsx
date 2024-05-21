@@ -3,20 +3,9 @@ import { useGameContext } from './GameContext';
 import { useGameMetaContext } from './GameMetaContext';
 
 function TurnStart({ turnNumber, onTurnStartEnd }) {
-    const { ANIMALS, animalOrders, } =
-        useGameContext() ?? {
-            ANIMALS: [],
-            animalOrders: [],
-            animalReals: [],
-        };
+    const { ANIMALS, animalOrders, } = useGameContext() 
 
-    const { playerNow, playerNames } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: []
-
-
-        }
+    const { playerNow, playerNames } = useGameMetaContext()
 
     const { getPlayerTextBackground, getPlayerTextStyle } =
         useGameMetaContext() ?? { getPlayerTextBackground: () => Object, getPlayerTextStyle: () => Object };

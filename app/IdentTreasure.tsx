@@ -3,57 +3,29 @@ import { useGameMetaContext } from './GameMetaContext';
 import { useGameContext } from './GameContext';
 
 function IdentTreasure({ onFinished, onPlayerBeingSkip }) {
-    const { playerNow, playerNames, gameTurn } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-            gameTurn: 0
-        }
-
+    const { playerNow, playerNames, gameTurn } = useGameMetaContext()
     const { ANIMALS,
         animalOrders,
         animalReals,
-        setAnimalOrders = () => { },
+        setAnimalOrders,
         characters,
-        setCharacters = () => { },
+        setCharacters,
         characterList,
         beingGankedTime,
-        setBeingGankedTime = () => { },
+        setBeingGankedTime,
         dummy,
         setDummy,
         civHuangBlockedTurn,
         civMuBlockedTurn,
         animalBlocked,
         animalRealAltered,
-        addGameLog = () => { },
+        addGameLog,
         isLaiEffected,
         beingPoisonedTime,
         setBeingPoisonedTime,
         beingConfusedPlayerIndex,
         setBeingConfusedPlayerIndex,
-    } = useGameContext() ?? {
-
-        ANIMALS: [],
-        animalOrders: [],
-        animalReals: [],
-        setAnimalOrders: undefined,
-        characters: [],
-        setCharacters: undefined,
-        characterList: [],
-        beingGankedTime: [],
-        setBeingGankedTime: undefined,
-        civHuangBlockedTurn: 0,
-        civMuBlockedTurn: 0,
-        animalBlocked: [],
-        animalRealAltered: [],
-        addameLog: () => { },
-        isLaiEffected: false,
-        beingPoisonedTime: [],
-        setBeingPoisonedTime: () => { },
-        beingConfusedPlayerIndex: [],
-        setBeingConfusedPlayerIndex: () => { },
-    }
-
+    } = useGameContext()
     const [identTimeUse, setIdentTimeUse] = useState(0)
     const [identedAnimals, setIdentedAnimals] = useState<number[]>([])
     const [identedAnimalsOrder, setIdentedAnimalOrder] = useState<number[]>([])
@@ -146,7 +118,7 @@ function IdentTreasure({ onFinished, onPlayerBeingSkip }) {
                     failIdentedAnimals.includes(index) ||
                     identTimeUse >= identTime ||
                     beingGanked}
-            >
+            >   
                 {ANIMALS[animalOrders[index + gameTurn * ANIMAL_DISPLAY_IN_ONE_TURN]]}
             </button>
         )
@@ -205,8 +177,6 @@ function IdentTreasure({ onFinished, onPlayerBeingSkip }) {
     }
 
     useEffect(() => {
-        //console.log(failIdentedAnimals)
-        //console.log(identedAnimals)
         if (beingPoisonedTime[playerNow] > 0) {
 
             const tempBeingConfusedPlayerIndex = [...beingConfusedPlayerIndex]

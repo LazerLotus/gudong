@@ -1,33 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useGameMetaContext } from './GameMetaContext';
-import { useGameContext } from './GameContext';
-import IdentTreasure from './IdentTreasure';
 
 function PlayerPass({ onPlayerPassFinish }) {
 
-    const { playerNow, playerNames, numberOfPlayers, gameTurn, playerPlayed, setPlayerPlayed } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-            numberOfPlayers: 0,
-            gameTurn: 0,
-            playerPlayed: [0],
-            setPlayerPlayed: () => { }
-        }
-
-    const { characters, characterList, beingGankedTime, setBeingGankedTime, setAnimalOrders, ANIMALS, animalBlocked, setAnimalBlocked, animalOrders, animalRealAltered, setAnimalRealAltered } =
-        useGameContext() ?? {
-            characters: [],
-            characterList: [],
-            beingGankedTime: [],
-            setBeingGankedTime: () => { },
-            ANIMALS: [],
-            animalOrders: [],
-            animalBlocked: [],
-            setAnimalBlocked: () => { },
-            animalRealAltered: [],
-            setAnimalRealAltered: () => { },
-        }
+    const {  playerNames, numberOfPlayers, playerPlayed, setPlayerPlayed } =useGameMetaContext()
 
     const handleChooseNextPlayerButtonClick = (index: number) => {
         setPlayerPlayed( [...playerPlayed, index] )

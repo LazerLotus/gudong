@@ -2,26 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PlayerList from './PlayerList';
 import { useGameMetaContext } from './GameMetaContext';
 import { useGameContext } from './GameContext';
+import { generateNumbersUpToN, shuffleArray, shuffleArray2DnTimes, sortGroups } from './util/shuffleArray'
 
 function GameSetup({ onSubmit }) {
-    const { getPlayerTextStyle, MIN_PLAYERS, MAX_PLAYERS, numberOfPlayers, setNumberOfPlayers = () => { }, playerNames, playerNow, setPlayerNow = () => { }, playerPlayed, setPlayerPlayed } =
-        useGameMetaContext() ?? {
-            MIN_PLAYERS: 0,
-            MAX_PLAYERS: 0,
-            numberOfPlayers: 0,
-            setNumberOfPlayers: undefined,
-            playerNames: [],
-            playerNow: 0,
-            setPlayerNow: undefined,
-            playerPlayed: [],
-            setPlayerPlayed: () => { },
-            getPlayerTextStyle: () => { }
-        };
-
-    const { setCharacterList, characterList } = useGameContext() ?? {
-        setCharacterList: () => { },
-    }
-    const { gameLog } = useGameContext() ?? { gameLog: "" }
+    const { MIN_PLAYERS, MAX_PLAYERS, numberOfPlayers, setNumberOfPlayers , playerNames, playerNow, setPlayerNow, playerPlayed, setPlayerPlayed } = useGameMetaContext()
+    const { setAnimalOrders,setAnimalReals, setCharacterList, characterList } = useGameContext()
 
     const [selectedFirstPlayer, setSelectedFirstPlayer] = useState(-1);
 
@@ -37,12 +22,26 @@ function GameSetup({ onSubmit }) {
     const onBigEyeIsIn = () => {
         setCharacterList(['許願', '方震', '黃煙煙', '木戶加奈', '老朝奉', '藥不然', '鄭國渠', '大眼賊'])
     }
+    
+    const initialBooleanArray = [
+        [true, true, false, false],
+        [false, true, true, false],
+        [false, false, true, true],
+    ]
+
+    const shuffleAnimalOrders = () => {
+        const tempAnimalOrders = shuffleArray(shuffleArray(shuffleArray(generateNumbersUpToN(12 - 1))))
+        setAnimalOrders(sortGroups(tempAnimalOrders, 4))
+        const tempAnimalReals = shuffleArray2DnTimes(initialBooleanArray, 100)
+        setAnimalReals(tempAnimalReals)
+    }
 
     const handleFormSubmit = event => {
         event.preventDefault();
         // Check if the first numberOfPlayers elements are filled.
         const isFormValid = Object.values(playerNames).slice(0, numberOfPlayers).every((value) => value !== '');
-
+        //shuffle only in the beginning
+        shuffleAnimalOrders()
         if (!isFormValid) {
             alert("請填入所有玩家名稱");
         } else {
@@ -103,13 +102,6 @@ function GameSetup({ onSubmit }) {
     const [isLaiRuleDisplay, setIsLaiRuleDisplay] = useState(false)
     const [isDirectorRuleDisplay, setIsDirectorRuleDisplay] = useState(false)
     const [isDevilSecondBrotherRuleDisplay, setIsDevilSecondBrotherRuleDisplay] = useState(false)
-
-    useEffect(() => {
-
-
-    })
-    
-
 
 
     const GithubLink =({url}: {url: string}) => {

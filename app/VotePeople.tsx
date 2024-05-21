@@ -4,40 +4,13 @@ import { useGameMetaContext } from './GameMetaContext';
 
 function VotePeople({ onVotePeopleEnd }) {
 
-    const { getPlayerTextBackground, getPlayerTextStyle } =
-        useGameMetaContext() ?? { getPlayerTextBackground: () => Object, getPlayerTextStyle: () => Object };
-
-
-
-    const { numberOfPlayers, playerNames, playerNow, setPlayerNow = () => { } } =
-        useGameMetaContext() ?? {
-            numberOfPlayers: 0,
-            playerNames: [],
-            playerNow: 0,
-            setPlayerNow: undefined,
-        };
-    const { addGameLog, ANIMALS, animalOrders, setAnimalOrders = () => { }, characters, setCharacters = () => { }, characterList,
+    const { numberOfPlayers, playerNames, getPlayerTextBackground, getPlayerTextStyle } = useGameMetaContext()
+    const { addGameLog,characters, characterList,
         bossVoted,
         setBossVoted,
-        xuVoted,
         setXuVoted,
-        funVoted,
         setFunVoted } =
-        useGameContext() ?? {
-            ANIMALS: [],
-            animalOrders: [],
-            setAnimalOrders: undefined,
-            characters: [],
-            setCharacters: undefined,
-            characterList: [],
-            bossVoted: [],
-            setBossVoted: () => { },
-            xuVoted: -1,
-            setXuVoted: () => { },
-            funVoted: -1,
-            setFunVoted: () => { },
-            addGameLog: () => { },
-        };
+        useGameContext() 
 
     function PeopleVoting() {
 

@@ -18,7 +18,7 @@ function App() {
                 <Game />
             </main>
             <footer style={{ padding: '20px'}}>
-                <button style={{backgroundColor: 'pink', color:'white'}}onClick={handleResetGame}>重置遊戲</button>
+                <button style={{backgroundColor: 'pink', color:'white'}}onClick={handleResetGame}>新開一場</button>
             </footer>
         </div>
         

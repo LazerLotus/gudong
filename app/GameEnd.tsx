@@ -4,13 +4,7 @@ import { useGameMetaContext } from './GameMetaContext';
 import FileDownloadButton from './FileDonwloadButton';
 
 function GameEnd() {
-    const { numberOfPlayers, playerNames, playerNow, setPlayerNow = () => { } } =
-        useGameMetaContext() ?? {
-            numberOfPlayers: 0,
-            playerNames: [],
-            playerNow: 0,
-            setPlayerNow: undefined,
-        };
+    const { numberOfPlayers, playerNames, playerNow, setPlayerNow = () => { }} = useGameMetaContext()
     const { ANIMALS, animalOrders, setAnimalOrders = () => { }, characters, setCharacters = () => { }, characterList,
         bossVoted,
         setBossVoted,
@@ -21,25 +15,7 @@ function GameEnd() {
         animalReals,
         votedAnimals,
         addGameLog,
-        gameLog } =
-        useGameContext() ?? {
-            ANIMALS: [],
-            animalOrders: [],
-            setAnimalOrders: undefined,
-            characters: [],
-            setCharacters: undefined,
-            characterList: [],
-            bossVoted: [],
-            setBossVoted: () => { },
-            xuVoted: -1,
-            setXuVoted: () => { },
-            funVoted: -1,
-            setFunVoted: () => { },
-            animalReals: [[true]],
-            votedAnimals: [],
-            addGameLog: () => { },
-            gameLog: ""
-        };
+        gameLog } = useGameContext()
 
     function OneAnimal({ animalText, isReal, isVoted }) {
         return (
@@ -209,10 +185,6 @@ function GameEnd() {
         }
     }, [isGameLogAdded])
 
-    const handleDisplayGameLogButtonClicked = () => {
-        setDisplayGameLog(!displayGameLog)
-    }
-
     const [displayGameLog, setDisplayGameLog] = useState(true)
 
     //console.log(animalReals)
@@ -247,8 +219,6 @@ function GameEnd() {
             <div>
                 <FileDownloadButton fileContent={gameLog} fileName="古董局中局遊戲紀錄.txt" /><ShowGameLog></ShowGameLog>
             </div>
-            <button onClick={() => { window.location.reload() }} >
-                新的一場(離開頁面)</button>
         </div>
     )
 }

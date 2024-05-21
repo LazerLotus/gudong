@@ -3,51 +3,14 @@ import { useGameContext } from './GameContext';
 import { useGameMetaContext } from './GameMetaContext';
 
 function TurnVoting({ onTurnVotingEnd }) {
-    const { playerNow, playerNames, gameTurn } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-            gameTurn: 0
-        }
-
+    const { gameTurn } = useGameMetaContext()
     const { ANIMALS,
         animalOrders,
         animalReals,
-        setAnimalOrders = () => { },
-        characters,
-        setCharacters = () => { },
-        characterList,
-        beingGankedTime,
-        setBeingGankedTime = () => { },
-        dummy,
-        setDummy,
-        civHuangBlockedTurn,
-        civMuBlockedTurn,
-        animalBlocked,
-        animalRealAltered,
         votedAnimals,
         setVotedAnimals,
         addGameLog
-
-    } = useGameContext() ?? {
-
-        ANIMALS: [],
-        animalOrders: [],
-        animalReals: [],
-        setAnimalOrders: undefined,
-        characters: [],
-        setCharacters: undefined,
-        characterList: [],
-        beingGankedTime: [],
-        setBeingGankedTime: undefined,
-        civHuangBlockedTurn: 0,
-        civMuBlockedTurn: 0,
-        animalBlocked: [],
-        animalRealAltered: [],
-        votedAnimals: [],
-        setVotedAnimals: () => { },
-        addGameLog: () => { },
-    }
+    } = useGameContext() 
 
     const [voteNumber, setVoteNumber] = useState([0, 0, 0, 0])
     const [largestVoteIndex, setLargestVoteIndex] = useState(-1)

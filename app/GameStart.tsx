@@ -6,21 +6,9 @@ import { useGameContext } from './GameContext';
 function CharacterSelecting({ playerIndex, playerNames, playerNumbers, onCharacterSubmit }) {
     const [characterChose, setCharacterChose] = useState(0);
 
-    const { playerNow, getPlayerTextBackground, getPlayerTextStyle } =
-        useGameMetaContext() ?? { getPlayerTextBackground: () => Object, getPlayerTextStyle: () => Object, playerNow: 0 };
+    const { playerNow, getPlayerTextBackground, getPlayerTextStyle } = useGameMetaContext() 
 
-    const { ANIMALS, animalOrders, setAnimalOrders = () => { }, characters, setCharacters = () => { }, characterList, gameLog, addGameLog, setGameLog } =
-        useGameContext() ?? {
-            ANIMALS: [],
-            animalOrders: [],
-            setAnimalOrders: undefined,
-            characters: [],
-            setCharacters: undefined,
-            characterList: [],
-            gameLog: "",
-            addGameLog: () => { },
-            setGameLog: () => { }
-        };
+    const { ANIMALS, animalOrders, setAnimalOrders = () => { }, characters, setCharacters = () => { }, characterList, gameLog, addGameLog, setGameLog } = useGameContext()
 
 
     const handleCharacterChoosing = (characterIndex) => {
@@ -62,23 +50,8 @@ function CharacterSelecting({ playerIndex, playerNames, playerNumbers, onCharact
 }
 
 function GameStart({ onGameStartFinish }) {
-    const { numberOfPlayers, playerNames, playerNow, setPlayerNow = () => { } } =
-        useGameMetaContext() ?? {
-            numberOfPlayers: 0,
-            playerNames: [],
-            playerNow: 0,
-            setPlayerNow: undefined,
-        };
-    const { ANIMALS, animalOrders, setAnimalOrders = () => { }, characters, setCharacters = () => { }, characterList, setGameLog = () => { } } =
-        useGameContext() ?? {
-            ANIMALS: [],
-            animalOrders: [],
-            setAnimalOrders: undefined,
-            characters: [],
-            setCharacters: undefined,
-            characterList: [],
-            setGameLog: () => { }
-        };
+    const { numberOfPlayers, playerNames, playerNow, setPlayerNow = () => { } } = useGameMetaContext()
+    const { ANIMALS, animalOrders, setAnimalOrders = () => { }, characters, setCharacters = () => { }, characterList, setGameLog = () => { }} = useGameContext() 
 
     const [playerIndex, setPlayerIndex] = useState(playerNow);
 
@@ -98,9 +71,6 @@ function GameStart({ onGameStartFinish }) {
             // Update the characters array with the selected character
             setCharacters([...(characters ?? []), characterIndex]);
             setPlayerIndex((playerIndex + 1) % numberOfPlayers);
-            console.log("playerIndex: " + playerIndex)
-            console.log("lastPlayerIndex: " + lastPlayerIndex)
-            console.log("characters: " + characters)
 
     }
 

@@ -5,13 +5,7 @@ import { resourceUsage } from 'process';
 import { fail } from 'assert';
 
 function IdentPeople({ onFinished, onPlayerBeingSkip }) {
-    const { playerNow, playerNames, gameTurn, numberOfPlayers } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-            gameTurn: 0,
-            numberOfPlayers: 0,
-        }
+    const { playerNow, playerNames, gameTurn, numberOfPlayers } = useGameMetaContext()
 
     const { ANIMALS,
         animalOrders,
@@ -31,31 +25,9 @@ function IdentPeople({ onFinished, onPlayerBeingSkip }) {
         identedPeople,
         setIdentedPeople,
         addGameLog,
-    } = useGameContext() ?? {
-
-        ANIMALS: [],
-        animalOrders: [],
-        animalReals: [],
-        setAnimalOrders: undefined,
-        characters: [],
-        setCharacters: undefined,
-        characterList: [],
-        beingGankedTime: [],
-        setBeingGankedTime: undefined,
-        civHuangBlockedTurn: 0,
-        civMuBlockedTurn: 0,
-        animalBlocked: [],
-        animalRealAltered: [],
-        identedPeople: [0],
-        setIdentedPeople: () => { },
-        addGameLog: () => { }
-    }
-        ;
+    } = useGameContext()
 
     const [identTimeUse, setIdentTimeUse] = useState(0)
-    const [identedAnimals, setIdentedAnimals] = useState<number[]>([])
-    const [identedAnimalsOrder, setIdentedAnimalOrder] = useState<number[]>([])
-    const [failIdentedAnimals, setFailIdentedAnimals] = useState<number[]>([])
     const [beingGanked, setBeingGanked] = useState(false)
 
 

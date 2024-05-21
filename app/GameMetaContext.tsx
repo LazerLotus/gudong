@@ -18,7 +18,7 @@ interface GameMetaContextProps {
     getPlayerTextBackground: (index: number) => object
 }
 
-export const GameMetaContext = createContext<GameMetaContextProps | undefined>(undefined); 
+export const GameMetaContext = createContext<GameMetaContextProps>({} as GameMetaContextProps); 
 
 export const GameMetaProvider = ({ children }) => {
     const MIN_PLAYERS = 6;
@@ -87,7 +87,7 @@ export const GameMetaProvider = ({ children }) => {
         getPlayerTextStyle,
         getPlayerTextBackground,
     };
-
+    console.log("gameTurn", gameTurn)
     return (
         <GameMetaContext.Provider value={contextValue}>
             {children}

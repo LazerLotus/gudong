@@ -1,26 +1,12 @@
-import React, { useState, memo } from 'react';
+import React from 'react';
 import { useGameMetaContext } from './GameMetaContext';
 import { useGameContext } from './GameContext';
-import IdentTreasure from './IdentTreasure';
-import IdentPeople from './IdentPeople';
+
 
 function FactionInfo() {
-    const { playerNow, playerNames, numberOfPlayers } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-            numberOfPlayers: 0
-        }
+    const { playerNow, playerNames, numberOfPlayers,getPlayerTextBackground, getPlayerTextStyle } = useGameMetaContext()
 
-    const { characters, characterList, isXuDisplayFirstDirectorFactionInfo } =
-        useGameContext() ?? {
-            characters: [],
-            characterList: [],
-            isXuDisplayFirstDirectorFactionInfo: false
-        }
-
-    const { getPlayerTextBackground, getPlayerTextStyle } =
-        useGameMetaContext() ?? { getPlayerTextBackground: () => Object, getPlayerTextStyle: () => Object };
+    const { characters, characterList, isXuDisplayFirstDirectorFactionInfo } = useGameContext()
 
     const getCharacterName = (index) => { return characterList[characters[index]] }
 

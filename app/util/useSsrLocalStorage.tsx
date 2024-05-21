@@ -1,14 +1,5 @@
 import { useLocalStorage } from "react-use";
 
-// export function useSsrLocalStorage<T>(
-//     key: string,
-//     initial: T
-//   ): [T, React.Dispatch<T>]{
-//     return typeof window === 'undefined'
-//       ? [initial, (value: T) => undefined]
-//       : useLocalStorage<T>(key, initial);
-//   };
-
 export function useSsrLocalStorage<T>(
   key: string,
   initial: T

@@ -11,11 +11,7 @@ function IdentTreasureBigEye({ onFinished, onPlayerBeingSkip }) {
     const [beingGanked, setBeingGanked] = useState<boolean>(false)
 
     const { playerNow, playerNames, gameTurn } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-            gameTurn: 0
-        }
+        useGameMetaContext()
 
     const { ANIMALS,
         animalOrders,
@@ -38,28 +34,7 @@ function IdentTreasureBigEye({ onFinished, onPlayerBeingSkip }) {
         setBeingConfusedPlayerIndex,
         beingPoisonedTime,
         setBeingPoisonedTime
-    } = useGameContext() ?? {
-
-        ANIMALS: [],
-        animalOrders: [],
-        animalReals: [],
-        setAnimalOrders: undefined,
-        characters: [],
-        setCharacters: undefined,
-        characterList: [],
-        beingGankedTime: [],
-        setBeingGankedTime: undefined,
-        civHuangBlockedTurn: 0,
-        civMuBlockedTurn: 0,
-        animalBlocked: [],
-        animalRealAltered: [],
-        addameLog: () => { },
-        CHINESE: [],
-        beingConfusedPlayerIndex: [],
-        beingPoisonedTime: [],
-        setBeingPoisonedTime: () => { },
-        setBeingConfusedPlayerIndex: () => { }
-    }
+    } = useGameContext()
 
     function getChineseResult(chineseIndex) {
         let turn = Math.floor(chineseIndex / 4)

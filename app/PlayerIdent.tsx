@@ -7,17 +7,8 @@ import FactionInfo from './FactionInfo';
 import IdentTreasureBigEye from './IdentTreasureBigEye';
 
 function PlayerIdent({ onPlayerIdentFinish, onPlayerBeingSkip }) {
-    const { playerNow, playerNames } =
-        useGameMetaContext() ?? {
-            playerNow: 0,
-            playerNames: [],
-        }
-
-    const { characters, characterList } =
-        useGameContext() ?? {
-            characters: [],
-            characterList: [],
-        }
+    const { playerNow, playerNames } = useGameMetaContext()
+    const { characters, characterList } = useGameContext()
 
     const [identDone, setIdentDone] = useState(false)
 
