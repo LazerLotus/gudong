@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useSsrLocalStorage } from './util/useSsrLocalStorage';
 
 
-
 interface GameContextProps {
     ANIMALS: string[];
     CHINESE: string[];
@@ -45,6 +44,8 @@ interface GameContextProps {
     setPoisonUsedTime: React.Dispatch<number >,
     beingConfusedPlayerIndex: number[],
     setBeingConfusedPlayerIndex: React.Dispatch<number[] >,
+    identPeopleTimeUsed: boolean[]
+    setIdentPeopleTimeUsed: React.Dispatch<boolean[]>
 }
 
 export const GameContext = createContext<GameContextProps>({} as GameContextProps);
@@ -88,7 +89,8 @@ export const GameProvider = ({ children }) => {
     function addGameLog(s: string) {
         setGameLog([...gameLog, s])
     }
-
+    // 紀錄每回合方震是否使用過能力
+    const [identPeopleTimeUsed, setIdentPeopleTimeUsed] = useSsrLocalStorage<boolean[]>('identPeopleTimeUsed', [false, false, false])
     // static character list
     const [characterList, setCharacterList] = useSsrLocalStorage<string[]>('characterList', ['許願', '方震', '黃煙煙', '木戶加奈', '老朝奉', '藥不然', '鄭國渠', '姬雲浮'])
     const contextValue: GameContextProps = {
@@ -133,6 +135,8 @@ export const GameProvider = ({ children }) => {
         setPoisonUsedTime,
         beingConfusedPlayerIndex,
         setBeingConfusedPlayerIndex,
+        identPeopleTimeUsed, 
+        setIdentPeopleTimeUsed
     };
 
     return (

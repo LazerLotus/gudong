@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useGameMetaContext } from './GameMetaContext';
 import { useGameContext } from './GameContext';
-import { resourceUsage } from 'process';
-import { fail } from 'assert';
+
 
 function IdentPeople({ onFinished, onPlayerBeingSkip }) {
     const { playerNow, playerNames, gameTurn, numberOfPlayers } = useGameMetaContext()
 
-    const { ANIMALS,
-        animalOrders,
-        animalReals,
-        setAnimalOrders = () => { },
+    const { 
         characters,
-        setCharacters = () => { },
         characterList,
         beingGankedTime,
         setBeingGankedTime = () => { },
-        dummy,
-        setDummy,
-        civHuangBlockedTurn,
-        civMuBlockedTurn,
-        animalBlocked,
-        animalRealAltered,
         identedPeople,
         setIdentedPeople,
         addGameLog,
+        identPeopleTimeUsed,
+        setIdentPeopleTimeUsed
     } = useGameContext()
 
-    const [identTimeUse, setIdentTimeUse] = useState(0)
     const [beingGanked, setBeingGanked] = useState(false)
 
 
     const handleIdentOnePeople = (peopleIndex: number) => {
+
+        const handleIdentTimeUsed = () =>{
+            const tempIdentPeopleTimeUsed= [...identPeopleTimeUsed]
+            tempIdentPeopleTimeUsed[gameTurn] = true
+            setIdentPeopleTimeUsed(tempIdentPeopleTimeUsed)  
+        }
 
         // TODO: 增加被偷襲和封鎖等
         if (beingGankedTime[playerNow] > 0) {
@@ -41,7 +37,7 @@ function IdentPeople({ onFinished, onPlayerBeingSkip }) {
             setBeingGanked(true)
             setBeingGankedTime(tempBeingGankedTime)
             addGameLog(playerNames[playerNow] + "試著鑒定" + playerNames[peopleIndex] + "，但是被偷襲了")
-        } else if (identTimeUse < 1) {
+        } else if (!identPeopleTimeUsed[gameTurn]) {
             //console.log(beingGankedTime)
             addGameLog(playerNames[playerNow] + "鑒定了" + playerNames[peopleIndex] + "，並發現其為" +
                 IdentPeopleResult(peopleIndex))
@@ -52,7 +48,7 @@ function IdentPeople({ onFinished, onPlayerBeingSkip }) {
                 addGameLog(playerNames[playerNow] + "的鑒定間接導致了" + playerNames[peopleIndex] + "被偷襲！")
             }
             setIdentedPeople([...identedPeople, peopleIndex])
-            setIdentTimeUse(identTimeUse + 1)
+            handleIdentTimeUsed()
         }
     }
 
@@ -70,17 +66,16 @@ function IdentPeople({ onFinished, onPlayerBeingSkip }) {
     }
 
     function IdentOnePoeple({ index }) { // 這裡要加{}!!!
+       const isDisabled =  identedPeople.includes(index) || identPeopleTimeUsed[gameTurn] || beingGanked || index === playerNow
+
+
         return (
             <p key={index}>
                 {playerNames[index] + "："}
                 <button
                     key={index}
                     onClick={() => handleIdentOnePeople(index)}
-                    disabled={
-                        identedPeople.includes(index) ||
-                        identTimeUse >= 1 ||
-                        beingGanked ||
-                        index === playerNow}
+                    disabled={isDisabled}
                 >
                     {
                         identedPeople.includes(index) || index === playerNow ?
@@ -111,10 +106,10 @@ function IdentPeople({ onFinished, onPlayerBeingSkip }) {
         if (beingGanked) {
             onPlayerBeingSkip()
         }
-        if (beingGanked || identTimeUse >= 1) {
+        if (beingGanked || identPeopleTimeUsed[gameTurn]) {
             onFinished()
         }
-    }, [beingGanked, identTimeUse, onFinished]);
+    }, [beingGanked, identPeopleTimeUsed, onFinished]);
 
     return (
         <div>
@@ -122,7 +117,7 @@ function IdentPeople({ onFinished, onPlayerBeingSkip }) {
                 <div>請選擇想鑑定的玩家</div>
                 <IdentOnePeopleList buttonCount={numberOfPlayers}></IdentOnePeopleList>
             </div>
-            <BeingGankedResult></BeingGankedResult>
+            <BeingGankedResult />
         </div>
     )
 }
